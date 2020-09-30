@@ -1,5 +1,6 @@
 import request from '@/utils/request';
 import { details } from '../../db/actions';
+import { getDocument } from './template';
 
 export async function query() {
   return [
@@ -24,8 +25,7 @@ export async function query() {
   ];
 }
 export async function queryCurrent() {
-
-  return details(localStorage.getItem('user'))
+  return localStorage.getItem('user')?getDocument(localStorage.getItem('user'),'users'):null
 
   return {
     name: 'Serati Ma',

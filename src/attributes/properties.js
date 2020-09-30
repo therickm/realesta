@@ -4,7 +4,7 @@ import { options } from "./utils";
 import modules from "../modules";
 
 export default async () =>{
-	const ops = await options(landlords.collection,["name", " - ","location"]).then((x)=>x ).catch(e=>console.log(e))
+	const ops = await options(landlords.collection,['sur_name',' ','first_name']).then((x)=>x ).catch(e=>console.log(e))
 	return {
 	...modules.PROPERTIES,
     moduleColumns : [
@@ -24,7 +24,7 @@ export default async () =>{
 			title: 'Landlord',
 			dataIndex: 'landlord',
 			MyComponent:ADBSelect,
-			LabelFormat:['sur_name',' ','first_name',' - ','location'],
+			LabelFormat:['sur_name',' ','first_name'],
 			type:'landlords',
 			singular:'landlord',
 			optionColumns:landlords.moduleColumns,
@@ -37,7 +37,7 @@ export default async () =>{
 			sorter: true
 		},
 		{
-			title: 'Management Percentage ',
+			title: 'MGT %',
 			dataIndex: 'management_percentage',
 			sorter: true,
 			valueType: 'digit',
@@ -48,7 +48,31 @@ export default async () =>{
 			dataIndex: 'remark',
 			valueType: 'textarea',
 			MyComponent:ATextarea,
-		}
+		},
+		{
+            title: 'Units',
+            dataIndex: 'totalUnits',
+            MyComponent: APhoneInput,
+            sorter: true,
+		},
+		{
+            title: 'Total Rent',
+            dataIndex: 'totalRent',
+            MyComponent: APhoneInput,
+            sorter: true,
+		},
+		{
+            title: 'MGT fees',
+            dataIndex: 'MGTFees',
+            MyComponent: APhoneInput,
+            sorter: true,
+		},
+		{
+            title: 'Uncollected',
+            dataIndex: 'uncollected',
+            MyComponent: APhoneInput,
+            sorter: true,
+        },
     ]
 }
 }

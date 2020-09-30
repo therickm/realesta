@@ -38,7 +38,6 @@ const Account = (props) => {
                 {
                     currentUser && <AttachImage getUpdatedDoc={getCurrentUser} currentUser={currentUser} styles={styles} />
                 }
-          
         </div>
         </div>
     )

@@ -52,13 +52,13 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
+              redirect: '/dashboard',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              path: '/dashboard',
+              name: 'Dashboard',
+              icon: 'DashboardOutlined',
+              component: './Dashboard',
             },
             {...modules.TENANTS},
             {...modules.PROPERTIES},
@@ -69,12 +69,14 @@ export default defineConfig({
             {...modules.RECEIPTS},
             {...modules.COMPLAINTS},
             {...modules.OCCUPATION},
+            {...modules.EXPENSE},
             {
               path: '/appsettings',
               name: 'Settings',
               icon: 'smile',
               component: './AppSettings',
             },
+            
             {
               path: '/properties/:id',
               component: './Properties/ManageUnits',

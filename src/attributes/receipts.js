@@ -1,4 +1,4 @@
-import { AInput, ATags, APhoneInput, ASelect,APassword, ADBSelect, AInputNumber, ATextarea } from "@/components/forms/Field";
+import { AInput, ATags, APhoneInput, ASelect,APassword, ADBSelect, AInputNumber, ATextarea, ARadio } from "@/components/forms/Field";
 import { options, occupancyOptions } from "./utils";
 import modules from "@/modules";
 import tenants from "./tenants";
@@ -38,6 +38,13 @@ export default async () =>{
             singular:paymentOptions.singular,
 			optionColumns:paymentOptions.moduleColumns,
             filters: true,
+    },
+    {
+        title:"Category",
+        dataIndex:'category',
+        MyComponent:ARadio,
+        radioOptions : ['Rent', 'Security Deposit', 'Utilities','Others'],
+        defaultValue:'Rent'
     },
     {
         title:'Income Center',

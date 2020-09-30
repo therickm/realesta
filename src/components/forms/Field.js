@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Checkbox, DatePicker, Form, Input, InputNumber, Radio, Select, Drawer, Switch } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Radio, Select, Drawer, Switch } from 'antd';
 import PhoneInput from './phone-input';
 import TextArea from 'antd/lib/input/TextArea';
-import { PlusOutlined } from '@ant-design/icons';
-import SubForm from './SubForm'
-import { query, queryAll, queryOne } from '@/pages/Template/service';
 import MyFormList from './MyFormList';
-import { LabelFormatter } from '@/utils/utils';
 import _ from 'lodash'
-import { getParticulars } from './formUtils';
 import DBSelect from './DBSelect';
 export const Field = (props) => {
 
 
-    const { Component, title, dataIndex, selectOptions, onChange, removeLabel,value, form } = props
+    const { Component, title, dataIndex, selectOptions, onChange, removeLabel,value, form, radioOptions} = props
     
     return (
         <Form.Item  
@@ -32,6 +27,11 @@ export const Field = (props) => {
                     
                     </Component>
                     :
+                    radioOptions?
+                    <Component buttonStyle="solid" options={radioOptions} {...props}onChange={onChange}
+                    optionType="button"
+                    buttonStyle="solid"/>
+                    :
                     <Component placeholder={title} onChange={onChange} {...props} style={{width: '100%',}}/>
             }
 
@@ -40,6 +40,7 @@ export const Field = (props) => {
 }
 
 export const AInput = (props) => <Field Component={Input} {...props} />;
+export const ARadio = (props) => <Field Component={Radio.Group} defaultValue="rent" buttonStyle="solid" {...props} radio={true}/>;
 export const ASwitch = (props) => <Field Component={Switch} {...props} size="small"/>;
 export const APassword = (props) => <Field Component={Input.Password} {...props}/>;
 export const ATextarea = (props) => <Field Component={TextArea} {...props} />;

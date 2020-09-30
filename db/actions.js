@@ -3,6 +3,7 @@ import db from './db'
 import md5 from 'md5'
 import modules from '@/modules';
 import _ from 'lodash'
+import { fakeData } from './fakedata';
 
   export async function getAll(rq) {
     const {filter} = rq
@@ -41,6 +42,7 @@ import _ from 'lodash'
 
 
   const { current = 1, pageSize = 10 } = rq;
+  console.log(rq);
   // const params = parse(realUrl, true).query;
   let dataSource = [...data.docs].slice((current - 1) * pageSize, current * pageSize);
   const sorter = rq.sorter;
@@ -71,27 +73,27 @@ import _ from 'lodash'
     });
   }
 
-  if (rq.filter) {
-    const filter = rq.filter;
+  // if (rq.filter) {
+  //   const filter = rq.filter;
 
-    console.log(filter);
+  //   console.log(filter);
 
-    if (Object.keys(filter).length > 0) {
-      dataSource = dataSource.filter(item =>
-        Object.keys(filter).some(key => {
-          if (!filter[key]) {
-            return true;
-          }
+  //   if (Object.keys(filter).length > 0) {
+  //     dataSource = dataSource.filter(item =>
+  //       Object.keys(filter).some(key => {
+  //         if (!filter[key]) {
+  //           return true;
+  //         }
 
-          if (filter[key].includes(`${item[key]}`)) {
-            return true;
-          }
+  //         if (filter[key].includes(`${item[key]}`)) {
+  //           return true;
+  //         }
 
-          return false;
-        }),
-      );
-    }
-  }
+  //         return false;
+  //       }),
+  //     );
+  //   }
+  // }
 
   console.log(data, Object.keys(rq.filter));
 
@@ -251,5 +253,20 @@ export const init = async() =>{
   _.forOwn(modules,(value,key)=>permissions.push({module:value.collection, create:true, update:true,delete:true}))
   save({name:"Super Administrator",permission:permissions,type:'roles'})
   .then(r=>save({name:'Super User', type:'users', username:'root',password:md5(md5('12345678')),role:r._id}))
+  .then(()=>fakeData())
 }
+
+export const bulkAdd = async (data)=>db.bulkDocs(data)
+
+
+
+
+
+
+
+
+
+
+
+
 

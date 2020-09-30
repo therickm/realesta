@@ -7,6 +7,7 @@ import Account from './components/Account';
 import UserTypes from './components/UserTypes';
 import IncomeExpenseTypes from './components/IncomeExpenseTypes';
 import PaymentOptions from './components/PaymetOptions';
+import Organization from './components/Organization';
 const { Item } = Menu;
 
 class AppSettings extends Component {
@@ -16,6 +17,7 @@ class AppSettings extends Component {
     super(props);
     const menuMap = {
       account:'Account Settings',
+      organization:'Organization Settings',
       userTypes: 'User Types',
       incomeExpenseTypes: 'Income & Expense Types',
       paymentOptions:'Payment Options'
@@ -85,6 +87,8 @@ class AppSettings extends Component {
     switch (selectKey) {
       case 'account':
         return <Account />;
+        case 'organization':
+        return <Organization />;
       case 'userTypes':
         return <UserTypes />;
         case 'incomeExpenseTypes':

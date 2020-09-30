@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Template from '../Template';
 import users from '../../attributes/users'
+import Page from '../Template/Page';
 
 const index = () => {
 	const [derived, setDerived] = useState({collection:'users',singular:'',moduleColumns:[]})
@@ -10,7 +10,7 @@ const index = () => {
 
 	return (
 		<div>
-			<Template {...derived} />
+			<Page {...derived} />
 		</div>
 	);
 };

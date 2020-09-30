@@ -2,7 +2,6 @@ import { AInput, APhoneInput,ASelect, ATags, AFormList, ACheckbox, ASwitch, }fro
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import modules from '../modules'
 import { Select } from "antd";
-console.log(Object.keys(modules));
 export default {
     ...modules.ROLES,
     moduleColumns : [

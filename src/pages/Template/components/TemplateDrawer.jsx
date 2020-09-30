@@ -5,7 +5,7 @@ import md5 from 'md5'
 import CreateForm from './CreateForm'
 
 const TemplateDrawer = (props) => {
-    const { contentType, columns, handleAdd, selectedRecord, singular, setTemplateDrawerState, templateDrawerState, actionRef,closeTemplateDrawer } = props
+    const { contentType, columns, handleAdd, selectedRecord, singular, setTemplateDrawerState, templateDrawerState, actionRef,closeTemplateDrawer, CustomView } = props
 
     const [form] = Form.useForm();
 
@@ -78,7 +78,7 @@ const TemplateDrawer = (props) => {
             }
         >
             {
-                contentType === 'view' ? <Details data={selectedRecord} singular={singular} /> :
+                contentType === 'view' ? CustomView?<CustomView data={selectedRecord} singular={singular}/>:<Details data={selectedRecord} singular={singular} /> :
                     <CreateForm columns={columns} form={form} selectedRecord={selectedRecord} contentType={contentType} singular={singular}/>
             }
         </Drawer>

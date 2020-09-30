@@ -1,11 +1,10 @@
 import React from 'react'
-import Template from '../Template'
-import landlords from '../../attributes/landlords'
+import landlords from '@/attributes/landlords'
+import Page from '../Template/Page'
 const index = () => {
 
-    
     return (
-        <Template {...landlords}/>
+        <Page {...landlords}/>
     )
 }
 export default index

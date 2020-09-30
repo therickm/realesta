@@ -5,6 +5,7 @@ import { Field } from "./Field"
 import SubForm from "./SubForm"
 import { queryAll, queryOne } from "@/pages/Template/service"
 import { LabelFormatter } from "@/utils/utils"
+import { getAllData } from "@/services/template"
 
 const DBSelect = (props) => {
 
@@ -21,9 +22,9 @@ const DBSelect = (props) => {
     const reloadList = async () => {
         if(_.isArray(type)){
             let data =[]
-            console.log(type.map(aType=>queryAll(aType).then((response) => {data = [...data,...response.docs]; console.log(data);setOptionsData(data)})))    
+            console.log(type.map(aType=>getAllData(aType).then((response) => {data = [...data,...response]; console.log(data);setOptionsData(data)})))    
         }else{
-            queryAll(type).then((response) => setOptionsData(response.docs))
+            getAllData(type).then((response) => setOptionsData(response))
         }
     }
     useEffect(() => {
@@ -47,10 +48,7 @@ const DBSelect = (props) => {
         }
     </>
     const onChange = (v) => {
-
         props.dataIndex === 'income_expense_type' && getParticulars(props.form);
-        console.log(v);
-        queryOne(v).then(ty=>console.log(ty))
         v === 'create new' && setChildrenDrawer(true)
     }
     return (<>

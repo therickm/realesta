@@ -1,10 +1,16 @@
 import { AInput, APhoneInput, ASelect, ATags } from "@/components/forms/Field";
 import modules from "../modules";
 import { Select } from "antd";
+import { formUserName } from "@/utils/utils";
 
 export default {
     ...modules.TENANTS,
     moduleColumns: [
+        {
+            title:'Name',
+            hideInForm:true,
+            render: (_, record) => (<>{formUserName(record)}</>)
+        },
         {
             title: 'Title',
             dataIndex: 'title',
@@ -13,6 +19,9 @@ export default {
             selectOptions: <>
                 <Select.Option value='mr'>
                     Mr.
+              </Select.Option>
+              <Select.Option value='none'>
+                    None
               </Select.Option>
                 <Select.Option value='ms'>
                     Ms.
@@ -32,13 +41,15 @@ export default {
                     required: true,
                     message: 'Landlord\'s name is required'
                 }
-            ]
+            ],
+            hideInTable:true,
         },
         {
             title: 'Sur Name',
             dataIndex: 'sur_name',
             sorter: true,
             MyComponent: AInput,
+            hideInTable:true,
 
         },
         {
@@ -46,6 +57,7 @@ export default {
             dataIndex: 'first_name',
             sorter: true,
             MyComponent: AInput,
+            hideInTable:true,
 
         },
         {
@@ -53,6 +65,7 @@ export default {
             dataIndex: 'middle_name',
             sorter: true,
             MyComponent: AInput,
+            hideInTable:true,
         },
 
         {

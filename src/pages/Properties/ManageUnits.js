@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { mapPropsStream } from 'recompose';
-import Template from '../Template';
 import { AInput, AInputNumber, ATextarea } from '@/components/forms/Field';
-import { hidden } from 'chalk';
-import { PageHeader, Tabs, Button, Statistic, Descriptions, Divider, Card } from 'antd';
-import { queryOne, queryAll, query } from '../Template/service';
+import { PageHeader, Tabs, Button, Statistic, Descriptions, Divider, Card, Badge, Space, Form, Drawer, message, Popconfirm } from 'antd';
+import { queryOne, queryAll, query, add } from '../Template/service';
 import dayjs from 'dayjs';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import CreateForm from '../Template/components/CreateForm';
+import properties from '@/attributes/properties';
+import moment from 'moment'
+import UnitView from './UnitView';
+import { getDocument, getCollectionDocuments, saveDocument, getAllData } from '@/services/template';
+import Page from '../Template/Page';
 
 const ManageUnits = (props) => {
 
@@ -56,24 +59,84 @@ const ManageUnits = (props) => {
     const [propertyInfo, setPropertyInfo] = useState({ ...props.match.params })
     const [totalUnits, setTotalUnits] = useState(0)
     const [totalRent, setTotalRent] = useState(0)
+    const [allOccupied, setAllOccupied] = useState([])
+    const [allUnits, setAllUnits] = useState([])
 
     useEffect(() => {
-        queryOne(props.match.params.id).then(x => {
-            setPropertyInfo(x)
-
-
-            query({filter:{ type:'units',property_id: x._id }}).then(x=>
-                {
-                    console.log(x);
-                    let totalRent = 0
-                    setTotalUnits(x.data.length)
-                    x.data.map(d=>totalRent+=d.rent)
-                    setTotalRent(totalRent)
-                    console.log('tttttttttt',x.data )
-    
+        getDocument(props.match.params.id,'properties').then(propertyData => {
+            setPropertyInfo(propertyData)
+            getAllData('units').then(x => {
+                setAllUnits(x.filter(u=>u.property_id === props.match.params.id))
+                console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',x.filter(u=>u.property_id === props.match.params.id));
+                let totalRent = 0
+                setTotalUnits(x.filter(u=>u.property_id === props.match.params.id).length)
+                x.filter(u=>u.property_id === props.match.params.id).map(d => totalRent += d.rent)
+                setTotalRent(totalRent)
             })
+                .then(() =>
+                getAllData('occupations').then(x => setAllOccupied(x)))
+                .then(() => {
+
+                })
         })
     }, [props.match.params.id])
+
+
+
+    const AllOccupiedUnits = allUnits.filter((el) => {
+        return allOccupied.some((f) => {
+            return f.unit === el._id;
+        });
+    });
+
+    console.log(allUnits, allOccupied, AllOccupiedUnits);
+
+    const rentOccupiedUnits = AllOccupiedUnits.reduce((t, c) => t + c.rent, 0)
+
+    const [form] = Form.useForm();
+    const [derivedProperties, setDerivedProperties] = useState({ collection: 'properties', singular: '', moduleColumns: [] })
+    useEffect(() => {
+        properties().then(x => setDerivedProperties(x))
+    }, [])
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
+    };
+
+    const handleAdd = async (fields, collection) => {
+        const hide = message.loading('Adding');
+        console.log('adding', fields);
+        let processedFields = {}
+        _.forOwn(fields, (value, key) => { processedFields = { ...processedFields, [key]: moment.isMoment(value) ? moment(value).utc().format() : value } })
+        // const processedFields = {...Object.keys(fields).map(field=>moment.isMoment(fields[field])?moment(fields[field]).utc().format():fields[field])}
+        console.log('adding', processedFields, collection);
+        try {
+            await saveDocument({ ...processedFields, type: collection });
+            hide();
+            message.success('Added successfully');
+            return true;
+        } catch (error) {
+            hide();
+            console.log('error', error);
+            message.error('Add failed, please try again!');
+            return false;
+        }
+    }
+
+
+    function confirm(e) {
+        console.log(e);
+        message.success('Click on Yes');
+    }
+
+    function cancel(e) {
+        console.log(e);
+        message.error('Click on No');
+    }
+
 
     return (
         <Card>
@@ -83,80 +146,143 @@ const ManageUnits = (props) => {
                 title={propertyInfo.name}
                 subTitle={propertyInfo.address}
                 extra={[
-                    <Button key="1" type="primary">
-                        <EditOutlined /> Edit
-      </Button>,
-                    <Button key="2" type="danger">
-                        <DeleteOutlined /> Deactivate
-      </Button>,
+
+                    <>
+                        <Button key="1" type="primary" onClick={showDrawer}>
+                            <EditOutlined /> Edit
+                        </Button>
+                        <Drawer
+                            width={820}
+                            bodyStyle={{
+                                padding: '32px 40px 48px',
+
+                            }}
+                            title={`Update ${propertyInfo.name}`}
+                            placement="right"
+                            closable={false}
+                            onClose={onClose}
+                            visible={visible}
+                            footer={
+                                <div
+                                    style={{
+                                        textAlign: 'right',
+                                    }}
+                                >
+                                    <Button onClick={onClose} style={{ marginRight: 8 }}>
+                                        Cancel
+                                    </Button>
+
+                                    <Button
+                                        onClick={async () =>
+                                            form.validateFields()
+                                                .then(async submittedValues => {
+
+
+                                                    if (submittedValues.password && !submittedValues._id) { submittedValues.password = md5(md5(submittedValues.password)) }
+                                                    const success = await handleAdd({ ...propertyInfo, ...submittedValues, type: derivedProperties.singular }, derivedProperties.collection);
+                                                    if (success) {
+                                                        onClose();
+                                                        getDocument(props.match.params.id,properties).then(x => setPropertyInfo(x))
+                                                    }
+                                                })
+                                        } type="primary">
+                                        Update {propertyInfo.name}
+                                    </Button>
+                                </div>
+                            }
+                        >
+                            {propertyInfo.name &&
+                                <CreateForm
+                                    columns={derivedProperties.moduleColumns}
+                                    form={form}
+                                    selectedRecord={propertyInfo}
+                                    contentType={'update'}
+                                    singular={derivedProperties.singular} />
+                            }
+                        </Drawer>
+                    </>
+                    ,
+                    <Popconfirm
+                        placement="bottomRight"
+                        title="Are you sure you want to deactivate this property?"
+                        onConfirm={confirm}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button key="2" type="danger">
+                            <DeleteOutlined /> Deactivate
+                        </Button>
+                    </Popconfirm>
+                    ,
                 ]}
             >
                 <div className="content" style={{ display: 'flex' }}>
                     <div className='main'>
                         <Descriptions size="small" column={1}>
-                            <Descriptions.Item label='Property name'>{propertyInfo.name}</Descriptions.Item>
-                            <Descriptions.Item label="Location">{propertyInfo.address}</Descriptions.Item>
                             <Descriptions.Item label="Management Percentage">{propertyInfo.management_percentage} %</Descriptions.Item>
                             <Descriptions.Item label="Created on">{dayjs(propertyInfo.createdAt).format('ddd DD MMM YYYY, HH:mm')}</Descriptions.Item>
-                            <Descriptions.Item label="Description">{propertyInfo.description}</Descriptions.Item>
+                            <Descriptions.Item label="Description">{propertyInfo.remark}</Descriptions.Item>
                         </Descriptions>
                     </div>
-                    <div className='extra'>
-                    <div
-                            style={{
-                                display: 'flex',
-                                width: 'max-content',
-                                justifyContent: 'flex-end',
-                            }}
-                        >
-                            <Statistic 
-                                style={{
-                                    marginRight: 32,
-                                }} title="Total units" value={totalUnits}  valueStyle={{ color: '#0050ff' }}/>
-                            <Statistic 
-                                style={{
-                                    marginRight: 32,
-                                }}title="Occupied units" value={568.08}  valueStyle={{ color: '#3f8600' }}/>
-                            <Statistic 
-                                style={{
-                                    marginRight: 32,
-                                }}title="Vacant units" value={568.08}  valueStyle={{ color: '#ff0000' }}/>
-                            <Statistic 
-                                style={{
-                                    marginRight: 32,
-                                }}title="%age vacant units" suffix="%" value={568.08}  valueStyle={{ color: '#fa8c16' }}/>
-                        </div>
-                        <Divider />
+                    <Space className='extra'>
                         <div
                             style={{
                                 display: 'flex',
                                 width: 'max-content',
                                 justifyContent: 'flex-end',
                             }}
-                        >   
-                            <Statistic 
+                        >
+                            <Statistic
                                 style={{
                                     marginRight: 32,
-                                }} title="Total rent" prefix="UGX" value={totalRent}  valueStyle={{ color: '#0050ff' }}/>
-                            <Statistic 
+                                }}
+                                title={<>Total Rent <Badge count={`${totalUnits} units`} style={{ backgroundColor: '#0050ff' }} /></>}
+                                prefix="UGX"
+
+                                value={totalRent}
+                                valueStyle={{ color: '#0050ff' }}
+                                footer={
+                                    <>
+                                        555
+                                    </>
+                                }
+                            />
+                            <Statistic
                                 style={{
                                     marginRight: 32,
-                                }}title="Occupied rent" prefix="UGX" value={568.08}  valueStyle={{ color: '#3f8600' }}/>
-                            <Statistic 
+                                }}
+                                title={<>Occupied rent <Badge count={`${AllOccupiedUnits.length} units`} style={{ backgroundColor: '#3f8600' }} /></>}
+                                prefix="UGX"
+                                value={rentOccupiedUnits}
+                                valueStyle={{ color: '#3f8600' }}
+                            />
+                            <Statistic
                                 style={{
                                     marginRight: 32,
-                                }}title="Vacant rent" prefix="UGX" value={568.08}  valueStyle={{ color: '#ff0000' }}/>
-                            <Statistic 
+                                }}
+                                title={<>Vacant rent <Badge count={`${totalUnits - AllOccupiedUnits.length} units`} style={{ backgroundColor: '#ff0000' }} /></>}
+                                prefix="UGX" value={totalRent - rentOccupiedUnits}
+                                valueStyle={{ color: '#ff0000' }}
+                            />
+                            <Statistic
+                                precision={2}
                                 style={{
                                     marginRight: 32,
-                                }}title="%age vacant rent" suffix="%" value={568.08}  valueStyle={{ color: '#fa8c16' }}/>
+                                }}
+                                title={<>% Rent <Badge count={`${((totalUnits - AllOccupiedUnits.length) * 100) / totalUnits}%`} style={{ backgroundColor: '#fa8c16' }} /></>}
+                                suffix="%"
+                                value={((totalRent - rentOccupiedUnits) * 100) / totalRent}
+                                valueStyle={{ color: '#fa8c16' }}
+                            />
+
                         </div>
-                    </div>
+                    </Space>
 
                 </div>
             </PageHeader>
             <Divider />
-            <Template moduleColumns={columns} name={`Units`} singular='Unit' collection='units' mFilter={{ property_id: propertyInfo._id }} />
+            <Page CustomView={UnitView} moduleColumns={columns} name={`Units`} singular='Unit' collection='units' mFilter={{ property_id: propertyInfo._id }} />
         </Card>
     )
 }

@@ -15,7 +15,7 @@ export default {
                     required: true,
                     message: ' name is required'
                 }
-            ]
+            ] 
         },
         {
             title: 'Description',

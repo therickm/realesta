@@ -1,4 +1,4 @@
-import { AInput, ATags, APhoneInput, ASelect, APassword, ADBSelect, AInputNumber } from "@/components/forms/Field";
+import { AInput, ATags, APhoneInput, ASelect, APassword, ADBSelect, AInputNumber, ARadio } from "@/components/forms/Field";
 import { options, occupancyOptions } from "./utils";
 import modules from "@/modules";
 import tenants from "./tenants";
@@ -31,6 +31,13 @@ export default async () => {
                 valueEnum: { ...valueEnum },
                 selectOptions: selectOptions,
                 filters: true,
+            },
+            {
+                title:"Category",
+                dataIndex:'category',
+                MyComponent:ARadio,
+                radioOptions : ['Rent', 'Security Deposit', 'Utilities','Others'],
+                defaultValue:'Rent'
             },
             {
                 title: 'Invoice Type',

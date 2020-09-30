@@ -8,7 +8,7 @@ import { getPageQuery } from '@/utils/utils';
 import { setAuthority } from '@/utils/authority';
 import { query, queryAll, add } from '@/pages/Template/service';
 import md5 from 'md5';
-import { init } from '../../../../db/actions';
+import { login, getCollectionDocuments, getDocument, init } from '@/services/template';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginForm;
 
@@ -30,10 +30,9 @@ const Login = props => {
   const [type, setType] = useState('users');
 
   const initUsers = () => {
-    queryAll('users').then(
+    getCollectionDocuments({filter:{type:'users'}}).then(
       users=>{
-        console.log(users.docs);
-        users.docs.length === 0 &&  init()
+        users.data.length === 0 &&  init()
       }
     )
   }
@@ -47,14 +46,17 @@ const Login = props => {
 
   const handleSubmit = values => {
     setSubmitting(true)
-    accountLogin(values).then(user=>
+    login(values).then(response=>
       {
         setSubmitting(false)
-        getPermissions(user.role).then(role=>{
-          localStorage.setItem('user',user._id)
+        if(response.state === 'error'){
+          return message.error(response.message)
+        }
+        getDocument(response.user.role,'roles').then(role=>{
+          localStorage.setItem('user',response.user._id)
           localStorage.setItem('role',JSON.stringify(role))
           setAuthority(role.name)
-          message.success(`Welcome ${user.name}`)
+          message.success(`Welcome ${response.user.name}`)
           const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;

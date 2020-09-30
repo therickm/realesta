@@ -5,6 +5,8 @@ const CreateForm = (props) => {
 
     const { form, columns, selectedRecord, contentType, layout,collection, singular } = props
 
+    console.log('selected',selectedRecord, form);
+
     if (contentType === 'update') {
         selectedRecord && form.setFieldsValue(selectedRecord)
     } else {

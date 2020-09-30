@@ -1,136 +1,137 @@
 
 const pages = {
-    ROLES:{
+    ROLES: {
         name: 'Roles',
         icon: 'KeyOutlined',
         path: '/roles',
         component: './Roles',
-        collection:'roles',
-        singular:'Role',
+        collection: 'roles',
+        singular: 'Role',
     },
-    USERS:{
+    USERS: {
         name: 'Users',
-        icon: 'KeyOutlined',
+        icon: 'UserSwitchOutlined',
         path: '/users',
         component: './Users',
-        collection:'users',
-        singular:'User',
+        collection: 'users',
+        singular: 'User',
     },
-    PROPERTIES:{
+    PROPERTIES: {
         name: 'Properties',
-        icon: 'KeyOutlined',
+        icon: 'HomeOutlined',
         path: '/properties',
         component: './Properties',
-        collection:'properties',
-        singular:'Property',
+        collection: 'properties',
+        singular: 'Property',
     },
-    LANDLORDS:{
+    LANDLORDS: {
         name: 'Landlords',
-        icon: 'KeyOutlined',
+        icon: 'UsergroupDeleteOutlined',
         path: '/landlords',
         component: './Landlords',
-        collection:'landlords',
-        singular:'Landlord',
+        collection: 'landlords',
+        singular: 'Landlord',
     },
-    TENANTS:{
+    TENANTS: {
         name: 'Tenants',
-        icon: 'KeyOutlined',
+        icon: 'UsergroupAddOutlined',
         path: '/tenants',
         component: './Tenants',
-        collection:'tenants',
-        singular:'Tenant',
+        collection: 'tenants',
+        singular: 'Tenant',
     },
-    UNITS:{
-        name:'Property Units',
-        collection:'units',
-        singular:'Unit'
+    UNITS: {
+        name: 'Property Units',
+        collection: 'units',
+        ixon: 'SafetyCertificateOutlined',
+        singular: 'Unit'
     },
-    INVOICES:{
-        name:'Invoices',
-        icon: 'KeyOutlined',
+    INVOICES: {
+        name: 'Invoices',
+        icon: 'TransactionOutlined',
         path: '/invoices',
         component: './Invoices',
-        collection:'invoices',
-        singular:'Invoice'
+        collection: 'invoices',
+        singular: 'Invoice'
     },
-    RECEIPTS:{
-        name:'Receipts',
-        icon: 'KeyOutlined',
+    RECEIPTS: {
+        name: 'Receipts',
+        icon: 'PayCircleOutlined',
         path: '/receipts',
         component: './Receipts',
-        collection:'receipts',
-        singular:'Receipt'
+        collection: 'receipts',
+        singular: 'Receipt'
     },
-    COMPLAINTS:{
-        name:'Complaints',
-        icon: 'KeyOutlined',
+    COMPLAINTS: {
+        name: 'Complaints',
+        icon: 'MessageOutlined',
         path: '/complaints',
         component: './Complaints',
-        collection:'complaints',
-        singular:'Complaint'
+        collection: 'complaints',
+        singular: 'Complaint'
     },
-    NOTES:{
-        name:'Notes',
-        icon: 'KeyOutlined',
+    NOTES: {
+        name: 'Notes',
+        icon: 'ProfileOutlined',
         path: '/notes',
         component: './Notes',
-        collection:'notes',
-        singular:'Note'
-        
+        collection: 'notes',
+        singular: 'Note'
+
     },
-    EXPENSE:{
-        name:'Expenses',
-        icon: 'KeyOutlined',
+    EXPENSE: {
+        name: 'Expenses',
+        icon: 'AccountBookOutlined',
         path: '/expenses',
         component: './Expenses',
-        collection:'expenses',
-        singular:'Expense'
+        collection: 'expenses',
+        singular: 'Expense'
     },
-    TRANSACTIONS:{
-        name:'Transactions',
-        icon: 'KeyOutlined',
+    TRANSACTIONS: {
+        name: 'Transactions',
+        icon: 'InteractionOutlined',
         path: '/transactions',
         component: './Transactions',
-        collection:'transactions',
-        singular:'Transaction'
+        collection: 'transactions',
+        singular: 'Transaction'
     },
-    ACCOUNTS:{
-        name:'Accounts',
-        icon: 'KeyOutlined',
+    ACCOUNTS: {
+        name: 'Accounts',
+        icon: 'BankOutlined',
         path: '/accounts',
         component: './Accounts',
-        collection:'accounts',
-        singular:'Account'
+        collection: 'accounts',
+        singular: 'Account'
     },
-    OCCUPATION:{
-        name:'Income Collection',
-        icon: 'KeyOutlined',
+    OCCUPATION: {
+        name: 'Income Collection',
+        icon: 'MoneyCollectOutlined',
         path: '/collection',
         component: './Collections',
-        collection:'occupations',
-        singular:'Occupation'
+        collection: 'occupations',
+        singular: 'Occupation'
     },
-    
+
 }
 
 
 const settings = {
-    USER_TYPES:{
-        name:'User Types',
-        collection:'user_types',
-        singular:'User Type'
+    USER_TYPES: {
+        name: 'User Types',
+        collection: 'user_types',
+        singular: 'User Type'
     },
-    INCOME_EXPENSE_TYPES:{
-        name:'Income & Expense Types',
-        collection:'income_expense_types',
-        singular:'Type'
+    INCOME_EXPENSE_TYPES: {
+        name: 'Income & Expense Types',
+        collection: 'income_expense_types',
+        singular: 'Type'
     },
-    PAYMENT_OPTIONS:{
-        name:'Payment Options',
-        collection:'payment_options',
-        singular:'Payment Option'
+    PAYMENT_OPTIONS: {
+        name: 'Payment Options',
+        collection: 'payment_options',
+        singular: 'Payment Option'
     },
 }
 
 
-export default {...pages, ...settings}
+export default { ...pages, ...settings }
