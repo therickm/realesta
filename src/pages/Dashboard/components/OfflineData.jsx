@@ -53,7 +53,7 @@ const OfflineData = ({ activeKey, loading, offlineData, offlineChartData, handle
     }}
   >
     <Tabs activeKey={activeKey} onChange={handleTabChange}>
-      {offlineData.map(shop => (
+      {offlineData.map((shop) => (
         <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
           <div
             style={{

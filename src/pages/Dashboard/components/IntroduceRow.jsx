@@ -61,16 +61,26 @@ const IntroduceRow = ({ loading, visitData, expenseData }) => (
           </Tooltip>
         }
         total={`UGX ${numeral(visitData && visitData[visitData.length - 1].y).format('0,0')}`}
-        footer={<Trend
-          reverseColor={true}
-          flag={visitData[visitData.length - 1].y - visitData[visitData.length - 2].y < 0 ? 'down' : 'up'}
-          style={{
-            marginRight: 16,
-          }}
-        >
-          Daily change(income)
-          <span className={styles.trendText}>{`${numeral(((visitData[visitData.length - 1].y - visitData[visitData.length - 2].y) / visitData[visitData.length - 2].y) * 100).format('0,0')}%`}</span>
-        </Trend>}
+        footer={
+          <Trend
+            reverseColor={true}
+            flag={
+              visitData[visitData.length - 1].y - visitData[visitData.length - 2].y < 0
+                ? 'down'
+                : 'up'
+            }
+            style={{
+              marginRight: 16,
+            }}
+          >
+            Daily change(income)
+            <span className={styles.trendText}>{`${numeral(
+              ((visitData[visitData.length - 1].y - visitData[visitData.length - 2].y) /
+                visitData[visitData.length - 2].y) *
+                100,
+            ).format('0,0')}%`}</span>
+          </Trend>
+        }
         contentHeight={46}
       >
         <MiniBar color="#33aa33" data={visitData} />
@@ -87,15 +97,25 @@ const IntroduceRow = ({ loading, visitData, expenseData }) => (
           </Tooltip>
         }
         total={`UGX ${numeral(expenseData && expenseData[expenseData.length - 1].y).format('0,0')}`}
-        footer={<Trend
-          flag={expenseData[expenseData.length - 1].y - expenseData[expenseData.length - 2].y < 0 ? 'down' : 'up'}
-          style={{
-            marginRight: 16,
-          }}
-        >
-          Daily change(expense)
-          <span className={styles.trendText}>{`${numeral(((expenseData[expenseData.length - 1].y - expenseData[expenseData.length - 2].y) / expenseData[expenseData.length - 2].y) * 100).format('0,0')}%`}</span>
-        </Trend>}
+        footer={
+          <Trend
+            flag={
+              expenseData[expenseData.length - 1].y - expenseData[expenseData.length - 2].y < 0
+                ? 'down'
+                : 'up'
+            }
+            style={{
+              marginRight: 16,
+            }}
+          >
+            Daily change(expense)
+            <span className={styles.trendText}>{`${numeral(
+              ((expenseData[expenseData.length - 1].y - expenseData[expenseData.length - 2].y) /
+                expenseData[expenseData.length - 2].y) *
+                100,
+            ).format('0,0')}%`}</span>
+          </Trend>
+        }
         contentHeight={46}
       >
         <MiniArea color="#ff0000" data={expenseData} />

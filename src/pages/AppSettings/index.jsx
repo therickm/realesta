@@ -16,11 +16,11 @@ class AppSettings extends Component {
   constructor(props) {
     super(props);
     const menuMap = {
-      account:'Account Settings',
-      organization:'Organization Settings',
+      account: 'Account Settings',
+      organization: 'Organization Settings',
       userTypes: 'User Types',
       incomeExpenseTypes: 'Income & Expense Types',
-      paymentOptions:'Payment Options'
+      paymentOptions: 'Payment Options',
     };
     this.state = {
       mode: 'inline',
@@ -44,13 +44,13 @@ class AppSettings extends Component {
 
   getMenu = () => {
     const { menuMap } = this.state;
-    return Object.keys(menuMap).map(item => <Item key={item}>{menuMap[item]}</Item>);
+    return Object.keys(menuMap).map((item) => <Item key={item}>{menuMap[item]}</Item>);
   };
   getRightTitle = () => {
     const { selectKey, menuMap } = this.state;
     return menuMap[selectKey];
   };
-  selectKey = key => {
+  selectKey = (key) => {
     this.setState({
       selectKey: key,
     });
@@ -87,15 +87,19 @@ class AppSettings extends Component {
     switch (selectKey) {
       case 'account':
         return <Account />;
-        case 'organization':
+
+      case 'organization':
         return <Organization />;
+
       case 'userTypes':
         return <UserTypes />;
-        case 'incomeExpenseTypes':
+
+      case 'incomeExpenseTypes':
         return <IncomeExpenseTypes />;
-        case 'paymentOptions':
-          return <PaymentOptions />;
-  
+
+      case 'paymentOptions':
+        return <PaymentOptions />;
+
       default:
         break;
     }
@@ -115,7 +119,7 @@ class AppSettings extends Component {
       <GridContent>
         <div
           className={styles.main}
-          ref={ref => {
+          ref={(ref) => {
             if (ref) {
               this.main = ref;
             }

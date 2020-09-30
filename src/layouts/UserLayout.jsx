@@ -10,7 +10,8 @@ import Footer from '@/components/Footer';
 if (localStorage.getItem('user')) {
   window.location.href = '/';
 }
-const UserLayout = props => {
+
+const UserLayout = (props) => {
   const {
     route = {
       routes: [],
@@ -23,11 +24,10 @@ const UserLayout = props => {
       pathname: '',
     },
   } = props;
-  const { formatMessage } = useIntl();
+  const {} = useIntl();
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
-    formatMessage,
     breadcrumb,
     ...props,
   });
@@ -47,10 +47,10 @@ const UserLayout = props => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Realesta  </span>
+                <span className={styles.title}>Realesta </span>
               </Link>
             </div>
-            <div className={styles.desc}>Property Management         System</div>
+            <div className={styles.desc}>Property Management System</div>
           </div>
           {children}
         </div>

@@ -47,7 +47,7 @@ const ProportionSales = ({
         subTitle="Sales"
         total={() => <Yuan>{salesPieData.reduce((pre, now) => now.y + pre, 0)}</Yuan>}
         data={salesPieData}
-        valueFormat={value => <Yuan>{value}</Yuan>}
+        valueFormat={(value) => <Yuan>{value}</Yuan>}
         height={248}
         lineWidth={4}
       />
