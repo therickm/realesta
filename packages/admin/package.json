@@ -1,0 +1,27 @@
+{
+	"name": "realesta-admin",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev -p 3030",
+		"build": "next build",
+		"start": "next start"
+	},
+	"dependencies": {
+		"@ant-design/icons": "^4.2.2",
+		"@ant-design/pro-provider": "^0.2.1",
+		"@ant-design/pro-table": "^2.9.1",
+		"@zeit/next-css": "^1.0.1",
+		"@zeit/next-less": "^1.0.1",
+		"@zeit/next-sass": "^1.0.1",
+		"antd": "^4.6.6",
+		"babel-plugin-import": "^1.13.0",
+		"less": "^3.12.2",
+		"next": "9.5.3",
+		"pouchdb": "^7.2.2",
+		"pouchdb-find": "^7.2.2",
+		"react": "16.13.1",
+		"react-dom": "16.13.1",
+		"realesta-desktop": "0.0.1"
+	}
+}
