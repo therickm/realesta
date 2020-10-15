@@ -41,7 +41,7 @@ function createWindow() {
     // frame: false,
     useContentSize: true,
     title: "Realesta PMS",
-    // icon: trayIcon,
+    icon: trayIcon,
     'accept-first-mouse': true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),

@@ -2,8 +2,6 @@ import mocker from 'mocker-data-generator'
 import { addBulkData } from '@/pages/Template/service'
 import DB from './database'
 
-const TAFFY = require('taffy')
-
 var id_types = ['national_id', 'driving_permit', 'passport', 'others']
 var landlord = {
     _id: {
