@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Notification, dialog, Menu, Tray } = require('electron');
+const { app, BrowserWindow, Notification, dialog, Menu, Tray, nativeImage } = require('electron');
 const log = require('electron-log');
 const { autoUpdater } = require("electron-updater");
 const path = require('path')
@@ -20,13 +20,13 @@ let appIcon = null
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-if (platform == 'darwin') {
-  trayIcon = path.join(__dirname, 'logo_box.png')
-} else if (platform == 'win32') {
-  trayIcon = path.join(__dirname, 'icon.ico')
-} else {
-  trayIcon = path.join(__dirname, 'logo_box.png')
-}
+// if (platform == 'darwin') {
+//   trayIcon = path.join(__dirname, 'logo_box.png')
+// } else if (platform == 'win32') {
+//   trayIcon = path.join(__dirname, 'icon.ico')
+// } else {
+trayIcon = nativeImage.createFromPath(path.join(__dirname, 'logo_box.png'))
+// }
 
 function sendStatusToWindow(text) {
   log.info(text);
@@ -41,7 +41,7 @@ function createWindow() {
     // frame: false,
     useContentSize: true,
     title: "Realesta PMS",
-    icon: trayIcon,
+    // icon: trayIcon,
     'accept-first-mouse': true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -72,7 +72,7 @@ function createWindow() {
   appIcon.setTitle('Realesta PMS')
 
   // Set toot tip for tray icon
-  appIcon.setToolTip('Realesta Property Management System')
+  appIcon.setToolTip('Realesta | Property Management System')
 
   // Create RightClick context menu
   appIcon.setContextMenu(contextMenu)
@@ -128,7 +128,7 @@ if (isDev) {
   //     });
 
 } else {
-  mainWindow.removeMenu();
+  // mainWindow.removeMenu();
 
 }
 

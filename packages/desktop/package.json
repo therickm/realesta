@@ -7,17 +7,12 @@
 	"homepage": ".",
 	"productName": "Realesta",
 	"license": "MIT",
-	"directories": {
-		"lib": "lib",
-		"test": "__tests__"
-	},
-	"files": [ "lib" ],
 	"publishConfig": {
 		"access": "public"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hytechlab/abacus.git"
+		"url": "git+https://github.com/therickm/realesta.git"
 	},
 	"scripts": {
 		"analyze": "cross-env ANALYZE=1 umi build",
@@ -48,8 +43,8 @@
 		"test:component": "umi test ./src/components",
 		"tsc": "tsc",
 		"electron-dev": "concurrently \"BROWSER=none yarn dev\" \"wait-on http://localhost:8000 && electron .\"",
-		"electron-pack": "electron-builder --linux",
-		"preelectron-pack": "yarn build"
+		"electron-pack": "electron-builder --win",
+		"electron-release": "electron-builder  --publish always --win"
 	},
 	"husky": {
 		"hooks": {
@@ -131,10 +126,10 @@
 		"cross-env": "^7.0.0",
 		"cross-port-killer": "^1.1.1",
 		"detect-installer": "^1.0.1",
-		"electron": "^9.1.0",
+		"electron": "9.1.0",
 		"electron-builder": "^22.7.0",
 		"electron-devtools-installer": "^2.2.4",
-		"electron-is-dev": "^1.1.0",
+		"electron-is-dev": "^1.2.0",
 		"enzyme": "^3.11.0",
 		"eslint": "^7.1.0",
 		"express": "^4.17.1",
@@ -154,15 +149,16 @@
 	},
 	"checkFiles": [ "src/**/*.js*", "src/**/*.ts*", "src/**/*.less", "config/**/*.js*", "scripts/**/*.js" ],
 	"build": {
-		"appId": "com.hytechlab.realesta",
-		"productName": "Abacus",
+		"extends": null,
+		"appId": "com.haclab.realesta",
+		"productName": "Realesta PMS",
 		"copyright": "Copyright © 2020 Madrachi Company Limited",
 		"win": {
 			"icon": "icons/win/icon.ico",
 			"target": [
 				{
 					"target": "nsis",
-					"arch": [ "x64" ]
+					"arch": [ "ia32" ]
 				}
 			]
 		},
@@ -179,11 +175,9 @@
 			"deleteAppDataOnUninstall": true
 		},
 		"linux": {
-			"target": [ "AppImage" ],
-			"category": "Busness"
-		},
-		"appImage": {
-			"license": "LICENSE"
+			"icon": "icons/png/256x256.png",
+			"target": [ "deb" ],
+			"category": "Business"
 		},
 		"files": [ "icons/**/*", "node_modules/**/*" ],
 		"directories": {
@@ -193,10 +187,10 @@
 			{
 				"provider": "github",
 				"owner": "therickm",
-				"repo": "realesta-pms",
+				"repo": "realesta-pms-releases",
 				"releaseType": "draft",
 				"private": true,
-				"token": "6dd663ef72fdcce97c2dbf9aff3dfddd4e558667"
+				"token": "3bc9c169bf2998d3e8bdb08038a0aeba26df4bca"
 			}
 		]
 	},
