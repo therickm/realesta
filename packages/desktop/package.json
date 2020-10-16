@@ -1,7 +1,7 @@
 {
 	"name": "realesta-desktop",
 	"description": "Property Management System",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"private": true,
 	"main": "public/electron.js",
 	"homepage": ".",
@@ -44,7 +44,8 @@
 		"tsc": "tsc",
 		"electron-dev": "concurrently \"yarn dev\" \"wait-on http://localhost:8000 && electron .\"",
 		"electron-pack": "electron-builder --win",
-		"electron-release": "electron-builder  --publish always --win"
+		"electron-release": "electron-builder  --publish always --win",
+		"prerelease": "yarn build"
 	},
 	"husky": {
 		"hooks": {
@@ -54,15 +55,9 @@
 	"lint-staged": {
 		"**/*.less": "stylelint --syntax less",
 		"**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-		"**/*.{js,jsx,tsx,ts,less,md,json}": [
-			"prettier --write"
-		]
+		"**/*.{js,jsx,tsx,ts,less,md,json}": [ "prettier --write" ]
 	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions",
-		"not ie <= 10"
-	],
+	"browserslist": [ "> 1%", "last 2 versions", "not ie <= 10" ],
 	"dependencies": {
 		"@ant-design/charts": "^0.9.13",
 		"@ant-design/icons": "^4.0.0",
@@ -153,13 +148,7 @@
 	"engines": {
 		"node": ">=10.0.0"
 	},
-	"checkFiles": [
-		"src/**/*.js*",
-		"src/**/*.ts*",
-		"src/**/*.less",
-		"config/**/*.js*",
-		"scripts/**/*.js"
-	],
+	"checkFiles": [ "src/**/*.js*", "src/**/*.ts*", "src/**/*.less", "config/**/*.js*", "scripts/**/*.js" ],
 	"build": {
 		"extends": null,
 		"appId": "com.haclab.realesta",
@@ -170,9 +159,7 @@
 			"target": [
 				{
 					"target": "nsis",
-					"arch": [
-						"ia32"
-					]
+					"arch": [ "ia32" ]
 				}
 			]
 		},
@@ -190,9 +177,7 @@
 		},
 		"linux": {
 			"icon": "icons/png/256x256.png",
-			"target": [
-				"deb"
-			],
+			"target": [ "deb" ],
 			"category": "Business"
 		},
 		"files": [
@@ -206,7 +191,7 @@
 		],
 		"directories": {
 			"buildResources": "assets",
-			"output":"build"
+			"output": "build"
 		},
 		"publish": [
 			{
@@ -215,7 +200,7 @@
 				"repo": "realesta-pms-releases",
 				"releaseType": "draft",
 				"private": true,
-				"token": "3bc9c169bf2998d3e8bdb08038a0aeba26df4bca"
+				"token": "2bcda30c096d29dedb6ca8550fbadf161673e75a"
 			}
 		]
 	},
