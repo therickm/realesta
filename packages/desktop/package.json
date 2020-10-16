@@ -197,10 +197,16 @@
 		},
 		"files": [
 			"icons/**/*",
-			"node_modules/**/*"
+			"node_modules/**/*",
+			"public/electron.js",
+			"public/logo_box.png",
+			"public/*",
+			"dist/*",
+			"src/assets/*"
 		],
 		"directories": {
-			"buildResources": "assets"
+			"buildResources": "assets",
+			"output":"build"
 		},
 		"publish": [
 			{
