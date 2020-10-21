@@ -1,7 +1,7 @@
 {
 	"name": "realesta-desktop",
 	"description": "Property Management System",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"private": true,
 	"main": "public/electron.js",
 	"homepage": ".",
@@ -43,7 +43,7 @@
 		"test:component": "umi test ./src/components",
 		"tsc": "tsc",
 		"electron-dev": "concurrently \"yarn dev\" \"wait-on http://localhost:8000 && electron .\"",
-		"electron-pack": "electron-builder --win",
+		"electron-pack": "electron-builder --linux",
 		"electron-release": "electron-builder  --publish always --win",
 		"prerelease": "yarn build"
 	},
@@ -200,7 +200,7 @@
 				"repo": "realesta-pms-releases",
 				"releaseType": "draft",
 				"private": true,
-				"token": "2bcda30c096d29dedb6ca8550fbadf161673e75a"
+				"token": "c2a560e16d6f93cc28cb413b3fc1af0b04fb57ad"
 			}
 		]
 	},

@@ -1,5 +1,5 @@
 const proSettings = {
-  navTheme: 'dark',
+  navTheme: 'lite',
   // Dawn Blue
   primaryColor: '#600401',
   layout: 'side',

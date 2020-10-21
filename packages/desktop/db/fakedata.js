@@ -230,8 +230,8 @@ export async function fakeData() {
 
 
                 Object.keys(data).map(async (v) => {
-                    console.log(v, data[v]);
-                    // await new DB(v).bulkAdd(data[v])
+                    // console.log(v, data[v]);
+                    await new DB(v).bulkAdd(data[v])
                 })
             },
             err => console.error(err)

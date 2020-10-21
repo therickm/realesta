@@ -6,7 +6,7 @@ PouchDB.plugin(PouchDBFind);
 export default class RemoteDB {
     constructor(name) {
         this.name = name
-        this.db = new PouchDB('https://therick:develop@realesta-db.herokuapp.com/' + name, { auto_compaction: true });
+        this.db = new PouchDB('https://94e6475e-bbd3-4823-9628-db81d757361f-bluemix:aa25014b9ffa0d35e7a8fed8a1bce5c0d6a49cbb7aeb622e43084bdfeacdee8b@94e6475e-bbd3-4823-9628-db81d757361f-bluemix.cloudantnosqldb.appdomain.cloud/' + name, { auto_compaction: true });
         this.currentUser = { name: 'sys' };
         // this.remoteDB = new PouchDB('https://couchdb-2afa5d.smileupps.com/' + name)	
     }

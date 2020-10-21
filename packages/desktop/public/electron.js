@@ -13,6 +13,7 @@ log.info('App starting...');
 
 let trayIcon = null
 let appIcon = null
+let closeByTray = false
 
 // autoUpdater.setFeedURL({ provider: 'github', owner: 'hytechlab', repo: 'abacus-ims', token: '6dd663ef72fdcce97c2dbf9aff3dfddd4e558667', private: true });
 
@@ -63,7 +64,8 @@ function createWindow() {
     {
       label: 'Quit app',
       click: () => {
-        mainWindow.close()
+        closeByTray = true
+        app.quit();
       }
     }
   ])
@@ -87,13 +89,14 @@ function createWindow() {
   mainWindow.loadURL(isDev ? 'http://localhost:8000' : `file://${path.join(__dirname, '../dist/index.html')}`);
 
   mainWindow.on('close', function (event) {
-    if (!app.isQuiting) {
+    if (!app.isQuiting && !closeByTray) {
       event.preventDefault();
       mainWindow.hide();
     }
 
     return false;
   });
+
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

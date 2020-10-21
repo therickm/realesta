@@ -2,10 +2,10 @@ import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, SelectLang, useIntl, connect } from 'umi';
 import React from 'react';
-import logo from '../assets/logo.png';
 import styles from './UserLayout.less';
 import { GithubOutlined } from '@ant-design/icons';
 import Footer from '@/components/Footer';
+import { logo } from '@/images';
 
 if (localStorage.getItem('user')) {
   window.location.href = '/';
@@ -31,6 +31,9 @@ const UserLayout = (props) => {
     breadcrumb,
     ...props,
   });
+
+  console.log(logo);
+
   return (
     <HelmetProvider>
       <Helmet>

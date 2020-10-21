@@ -6,7 +6,7 @@ PouchDB.plugin(PouchDBFind);
 
 
 
-const organization = localStorage.getItem('organization')
+const organization = localStorage.getItem('organization') && localStorage.getItem('organization').toLowerCase()
 const user = localStorage.getItem('organization') || 'System Generated'
 export default class DB {
 	constructor(name) {
@@ -20,7 +20,7 @@ export default class DB {
 
 		//Replicating a local database to Remote 
 		// remote = 'https://ididi:pwdpwd@myaccount.cloudant.com/boaine_users',
-		PouchDB.sync(this.name, 'https://therick:develop@realesta-db.herokuapp.com/' + this.name,)
+		PouchDB.sync(this.name, "https://94e6475e-bbd3-4823-9628-db81d757361f-bluemix:aa25014b9ffa0d35e7a8fed8a1bce5c0d6a49cbb7aeb622e43084bdfeacdee8b@94e6475e-bbd3-4823-9628-db81d757361f-bluemix.cloudantnosqldb.appdomain.cloud/" + this.name,)
 			.then((res) => {
 				console.log('====================================');
 				console.log(res);
@@ -32,7 +32,7 @@ export default class DB {
 	}
 
 	getAllData = async () => {
-		this.dbSync()
+		await this.dbSync()
 		let data = [];
 		await this.db
 			.allDocs({ include_docs: true })
@@ -120,7 +120,7 @@ export default class DB {
 
 
 	async getCollectionDocuments(rq) {
-		this.dbSync()
+		await this.dbSync()
 		const { filter } = rq
 
 		try {

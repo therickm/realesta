@@ -9,7 +9,7 @@ export default class Database {
         this.currentUser = { name: 'sys' };
     }
     dbSync = async () => {
-        PouchDB.sync(this.name, 'https://therick:develop@realesta-db.herokuapp.com/' + this.name,)
+        PouchDB.sync(this.name, "https://94e6475e-bbd3-4823-9628-db81d757361f-bluemix:aa25014b9ffa0d35e7a8fed8a1bce5c0d6a49cbb7aeb622e43084bdfeacdee8b@94e6475e-bbd3-4823-9628-db81d757361f-bluemix.cloudantnosqldb.appdomain.cloud/" + this.name,)
             .then((res) => {
                 console.log('====================================');
                 console.log(res);
@@ -104,7 +104,9 @@ export default class Database {
 
 
     async getCollectionDocuments(rq) {
+
         const { filter } = rq
+        await this.dbSync()
 
         try {
             // Check indexes
